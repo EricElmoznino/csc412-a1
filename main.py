@@ -56,43 +56,51 @@ def save_plot(dir, title, x_label, y_label=''):
 plt.close()
 
 # Part 2
-# x = sample_gaussian(n=1000, d=1)
-# x = norm(x)
-# normalized_hists([x], legend=['D=1'])
-# save_plot(dir='2', title='sample norms', x_label='norm(x)')
+x = sample_gaussian(n=1000, d=1)
+x = norm(x)
+normalized_hists([x], legend=['D=1'])
+save_plot(dir='2', title='sample norms', x_label='norm(x)')
+
+plt.close()
 
 # Part 3/4
-# ds = [1, 2, 3, 10, 100]
-# xs = [sample_gaussian(n=1000, d=d) for d in ds]
-# xs = [norm(x) for x in xs]
-# normalized_hists(xs, legend=['D=%d hist' % d for d in ds])
-# save_plot(dir='3', title='sample norms', x_label='norm(x)')
-# xs = [chi_pdf(d) for d in ds]
-# pdfs(xs, legend=['D=%d pdf' % d for d in ds])
-# save_plot(dir='4', title='sample norms and pdf', x_label='norm(x) and x')
+ds = [1, 2, 3, 10, 100]
+xs = [sample_gaussian(n=1000, d=d) for d in ds]
+xs = [norm(x) for x in xs]
+normalized_hists(xs, legend=['D=%d hist' % d for d in ds])
+save_plot(dir='3', title='sample norms', x_label='norm(x)')
+xs = [chi_pdf(d) for d in ds]
+line_plot(xs, legend=['D=%d pdf' % d for d in ds])
+save_plot(dir='4', title='sample norms and pdf', x_label='norm(x) and x')
+
+plt.close()
 
 # Part 5
-# ds = [1, 2, 3, 10, 100]
-# xs = [sample_gaussian(n=1000, d=d) - sample_gaussian(n=1000, d=d) for d in ds]
-# xs = [norm(x) for x in xs]
-# normalized_hists(xs, legend=['D=%d hist' % d for d in ds])
-# xs = [chi_pdf(d,
-#               g_of_x=lambda x: np.sqrt(2) * x,
-#               ginv_of_y=lambda y: 1/np.sqrt(2) * y,
-#               dginv_of_y=lambda y: 1/np.sqrt(2) * y) for d in ds]
-# line_plot(xs, legend=['D=%d pdf' % d for d in ds])
-# save_plot(dir='5', title='normalized different between samples', x_label='norm(x)')
+ds = [1, 2, 3, 10, 100]
+xs = [sample_gaussian(n=1000, d=d) - sample_gaussian(n=1000, d=d) for d in ds]
+xs = [norm(x) for x in xs]
+normalized_hists(xs, legend=['D=%d hist' % d for d in ds])
+xs = [chi_pdf(d,
+              g_of_x=lambda x: np.sqrt(2) * x,
+              ginv_of_y=lambda y: 1/np.sqrt(2) * y,
+              dginv_of_y=lambda y: 1/np.sqrt(2) * y) for d in ds]
+line_plot(xs, legend=['D=%d pdf' % d for d in ds])
+save_plot(dir='5', title='normalized different between samples', x_label='norm(x)')
+
+plt.close()
 
 # Part 6/7
-# ds = [1, 2, 3, 10, 100]
-# xas, xbs = [sample_gaussian(n=1000, d=d) for d in ds], [sample_gaussian(n=1000, d=d) for d in ds]
-# likelihoods_linear = [alpha_mean_log_likelihood(xa, xb, polar=False) for xa, xb in zip(xas, xbs)]
-# likelihoods_polar = [alpha_mean_log_likelihood(xa, xb, polar=True) for xa, xb in zip(xas, xbs)]
-# for ll, lp, d in zip(likelihoods_linear, likelihoods_polar, ds):
-#     line_plot([ll], legend=['linear D=%d' % d])
-#     line_plot([lp], legend=['polar D=%d' % d])
-#     save_plot(dir='6', title='average log likelihoods D=%d' % d, x_label='alpha', y_label='log likelihood')
-#     plt.close()
+ds = [1, 2, 3, 10, 100]
+xas, xbs = [sample_gaussian(n=1000, d=d) for d in ds], [sample_gaussian(n=1000, d=d) for d in ds]
+likelihoods_linear = [alpha_mean_log_likelihood(xa, xb, polar=False) for xa, xb in zip(xas, xbs)]
+likelihoods_polar = [alpha_mean_log_likelihood(xa, xb, polar=True) for xa, xb in zip(xas, xbs)]
+for ll, lp, d in zip(likelihoods_linear, likelihoods_polar, ds):
+    line_plot([ll], legend=['linear D=%d' % d])
+    line_plot([lp], legend=['polar D=%d' % d])
+    save_plot(dir='6', title='average log likelihoods D=%d' % d, x_label='alpha', y_label='log likelihood')
+    plt.close()
+
+plt.close()
 
 # Part 8
 ds = [1, 2, 3, 10, 100]
